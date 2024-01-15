@@ -1,5 +1,6 @@
 import time
 import random
+import argparse
 import numpy as np
 
 from data_pre import PrepareData
@@ -55,21 +56,27 @@ def train(data, model, criterion, optimizer):
             print('> Save model done...')
         print()
 
-# 数据预处理
-data = PrepareData(DATA_FILE)
-src_vocab = len(data.en_word_dict)
-tgt_vocab = len(data.cn_word_dict)
-print("src_vocab %d" % src_vocab)
-print("tgt_vocab %d" % tgt_vocab)
 
-# 模型的初始化
-model = make_model(src_vocab, tgt_vocab, LAYERS, D_MODEL, D_FF, H_NUM, DROPOUT)
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--path', type=str, required=True)
+    args = parser.parse_args()
+    
+    # 数据预处理
+    data = PrepareData(args.path)
+    src_vocab = len(data.en_word_dict)
+    tgt_vocab = len(data.cn_word_dict)
+    print("src_vocab %d" % src_vocab)
+    print("tgt_vocab %d" % tgt_vocab)
 
-# training part
-print(">>>>>>> start train")
-train_start = time.time()
-criterion = LabelSmoothing(tgt_vocab, padding_idx=0, smoothing=0.1)  # 损失函数
-optimizer = NoamOpt(D_MODEL, 1, 2000,
-                    torch.optim.Adam(model.parameters(), lr=0, betas=(0.9, 0.98), eps=1e-9))  # 优化器
-train(data, model, criterion, optimizer)  # 训练函数(含保存)
-print(f"<<<<<<< finished train, cost {time.time()-train_start:.4f} seconds")
+    # 模型的初始化
+    model = make_model(src_vocab, tgt_vocab, LAYERS, D_MODEL, D_FF, H_NUM, DROPOUT)
+
+    # training part
+    print(">>>>>>> start train")
+    train_start = time.time()
+    criterion = LabelSmoothing(tgt_vocab, padding_idx=0, smoothing=0.1)  # 损失函数
+    optimizer = NoamOpt(D_MODEL, 1, 2000,
+                        torch.optim.Adam(model.parameters(), lr=0, betas=(0.9, 0.98), eps=1e-9))  # 优化器
+    train(data, model, criterion, optimizer)  # 训练函数(含保存)
+    print(f"<<<<<<< finished train, cost {time.time()-train_start:.4f} seconds")
