@@ -17,11 +17,11 @@ MAX_LENGTH = 60                 # 语句最大长度
 # SRC_VOCAB = 5493                # 英文的单词数
 # TGT_VOCAB = 3194                # 中文的单词数
 
-DATA_FILE = 'data/news-commentary-v15.en-zh.tsv'
+DATA_FILE = '/kaggle/working/exp5/data/news-commentary-v15.en-zh.tsv'
 # TRAIN_FILE = 'data/train.txt'   # 训练集
 # DEV_FILE = 'data/dev.txt'       # 验证集
 # TEST_FILE = 'data/test.txt'     # 测试文件
-SAVE_FILE = 'save/model.pt'     # 模型保存路径(注意如当前目录无save文件夹需要自己创建)
+SAVE_FILE = '/kaggle/working/exp5/save/model.pt'     # 模型保存路径(注意如当前目录无save文件夹需要自己创建)
 
 # 这里针对的是DEV文件
 BLEU_REFERENCES = "data/bleu/references.txt" # BLEU评价参考译文
