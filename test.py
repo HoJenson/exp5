@@ -41,11 +41,11 @@ def evaluate(data, model):
         # 在data的英文数据长度上遍历下标
         for i in range(len(data.test_en)):
             # 打印待翻译的英文句子
-            en_sent = " ".join([data.en_index_dict[w] for w in data.test_en[i]])
-            print("\n" + en_sent)
+            text_en = data.test_en[i]
+            en_sent = " ".join([data.en_index_dict[text_en[w]] for w in range(1, len(text_en)-1)])
             # 打印对应的中文句子答案
-            cn_sent = " ".join([data.cn_index_dict[w] for w in data.test_cn[i]])
-            print("".join(cn_sent))
+            text_cn = data.test_cn[i]
+            cn_sent = " ".join([data.cn_index_dict[text_cn[w]] for w in range(1, len(text_cn)-1)])
 
             # 将当前以单词id表示的英文句子数据转为tensor，并放如DEVICE中
             src = torch.from_numpy(np.array(data.test_en[i])).long().to(DEVICE)
@@ -67,8 +67,14 @@ def evaluate(data, model):
                 # 否则终止遍历
                 else:
                     break
+            
             # 打印模型翻译输出的中文句子结果
-            print("translation: %s" % " ".join(translation))
+            # 打印前五十条数据测试数据
+            if i < 50:
+                print("\n" + en_sent)
+                print("".join(cn_sent))
+                print("translation: %s" % " ".join(translation))
+            
             bleu_candidate(" ".join(translation))
 
 def evaluate_test(data, model):
@@ -105,7 +111,7 @@ if __name__ == '__main__':
     from train import model
     from data_pre import PrepareData
     
-    model.load_state_dict(torch.load(SAVE_FILE, map_location=torch.device('cpu')))
+    model.load_state_dict(torch.load(SAVE_FILE))
     data = PrepareData(DATA_FILE)
     evaluate_test(data, model)
     

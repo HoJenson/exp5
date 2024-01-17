@@ -57,7 +57,6 @@ def run_epoch(data, model, loss_compute, epoch):
         #     tokens = 0
     return total_loss / total_tokens
 
-
 def train(data, model, criterion, optimizer):
     # 初始化模型在dev集上的最优Loss为一个较大值
     best_dev_loss = 1e5
@@ -94,7 +93,6 @@ def train(data, model, criterion, optimizer):
             break
         
     plot_loss(train_loss_list, dev_loss_list)
-
 
 if __name__ == '__main__':
     # training part
