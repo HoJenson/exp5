@@ -39,6 +39,10 @@ def bleu_references(data, save_filename=BLEU_REFERENCES):
         writer.write(sentence_tap+'\n')
     writer.close()
     
+def update_res(data, res_filename=RES_FILE):
+    writer = open(res_filename, 'a+', encoding='utf-8')
+    writer.write(data+'\n')
+    
 if __name__ == '__main__':
     from data_pre import PrepareData
     data = PrepareData(DATA_FILE)

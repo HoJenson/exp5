@@ -4,8 +4,9 @@ from torch.autograd import Variable
 from utils import subsequent_mask
 from settings import DEVICE, MAX_LENGTH
 import numpy as np
-from utils import bleu_candidate
-from nltk.translate.bleu_score import sentence_bleu,corpus_bleu
+from tqdm import tqdm
+from utils import bleu_candidate, update_res
+from nltk.translate.bleu_score import corpus_bleu
 
 def greedy_decode(model, src, src_mask, max_len, start_symbol):
     """
@@ -58,7 +59,7 @@ def evaluate(data, model):
             # 初始化一个用于存放模型翻译结果句子单词的列表
             translation = []
             # 遍历翻译输出字符的下标（注意：开始符"BOS"的索引0不遍历）
-            for j in range(1, out.size(1)):
+            for j in tqdm(range(1, out.size(1))):
                 # 获取当前下标的输出字符
                 sym = data.cn_index_dict[out[0, j].item()]
                 # 如果输出字符不为'EOS'终止符，则添加到当前句子的翻译结果列表
@@ -71,9 +72,12 @@ def evaluate(data, model):
             # 打印模型翻译输出的中文句子结果
             # 打印前五十条数据测试数据
             if i < 50:
-                print("\n" + en_sent)
-                print("".join(cn_sent))
-                print("translation: %s" % " ".join(translation))
+                update_res(en_sent)
+                update_res("".join(cn_sent))
+                update_res(" ".join(translation))
+                # print("\n" + en_sent)
+                # print("".join(cn_sent))
+                # print("translation: %s" % " ".join(translation))
             
             bleu_candidate(" ".join(translation))
 
@@ -111,7 +115,7 @@ if __name__ == '__main__':
     from train import model
     from data_pre import PrepareData
     
-    model.load_state_dict(torch.load(SAVE_FILE))
+    model.load_state_dict(torch.load(SAVE_FILE, map_location=torch.device('cpu')))
     data = PrepareData(DATA_FILE)
     evaluate_test(data, model)
     
@@ -120,3 +124,6 @@ if __name__ == '__main__':
     score = corpus_bleu(references, candidates, weights=(1, 0.2, 0, 0))
     print(score)
     
+    
+# todo
+# 更改reference.txt 更改数据处理空行

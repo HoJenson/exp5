@@ -42,17 +42,17 @@ class PrepareData:
             reader = list(csv.reader(file, delimiter='\t'))
             record_count = sum(1 for _ in reader)
             for i in range(0, int(record_count*train_ratio)):
-                #if len(reader[i][0]) != 0:
-                train_en.append(["BOS"] + word_tokenize(reader[i][0].lower()) + ["EOS"])
-                train_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
+                if len(reader[i][0]) != 0:
+                    train_en.append(["BOS"] + word_tokenize(reader[i][0].lower()) + ["EOS"])
+                    train_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
             for i in range(int(record_count*train_ratio), int(record_count*(train_ratio+dev_ratio))):
-                #if len(reader[i][0]) != 0:
-                dev_en.append(["BOS"] + word_tokenize(reader[i][0].lower()) + ["EOS"])
-                dev_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
+                if len(reader[i][0]) != 0:
+                    dev_en.append(["BOS"] + word_tokenize(reader[i][0].lower()) + ["EOS"])
+                    dev_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
             for i in range(int(record_count*(train_ratio+dev_ratio)), record_count):
-                #if len(reader[i][0]) != 0:
-                test_en.append(["BOS"] + word_tokenize(reader[i][0].lower()) + ["EOS"])
-                test_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
+                if len(reader[i][0]) != 0:
+                    test_en.append(["BOS"] + word_tokenize(reader[i][0].lower()) + ["EOS"])
+                    test_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
         
         return train_en, train_cn, dev_en, dev_cn, test_en, test_cn
 
@@ -142,18 +142,6 @@ class PrepareData:
             batches.append(Batch(batch_en, batch_cn))
         return batches
 
-    # 保存en_word_dict, cn_word_dict, en_index_dict, cn_index_dict为csv文件
-    def save_to_file(self):
-        data_list = [self.cn_word_dict, self.en_word_dict, self.cn_index_dict, self.en_index_dict]
-        file_name_list = ["cn_word_dict", "en_word_dict", "cn_index_dict", "en_index_dict"]
-        for i, data in enumerate(data_list):
-            with open('data/word_name_dict/' + file_name_list[i] + '.csv', 'a+', encoding='utf-8',
-                      newline='') as f:
-                writer = csv.writer(f)
-                for k, v in data.items():
-                    writer.writerow([k, v])
-        print('文件保存成功')
-
 
 # Object for holding a batch of data with mask during training.
 class Batch:
@@ -189,9 +177,3 @@ class Batch:
         tgt_mask = (tgt != pad).unsqueeze(-2)
         tgt_mask = tgt_mask & Variable(subsequent_mask(tgt.size(-1)).type_as(tgt_mask.data))
         return tgt_mask
-
-
-if __name__ == '__main__':
-    # 生成 word和id的文件，方便api文件进行读取
-    from settings import DATA_FILE
-    PrepareData(DATA_FILE).save_to_file()

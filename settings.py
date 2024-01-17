@@ -15,15 +15,10 @@ DROPOUT = 0.1                   # dropout比例
 MAX_LENGTH = 60                 # 语句最大长度
 WAIT = 4                        # 早停，等待的最大epoch数
 
-# SRC_VOCAB = 5493                # 英文的单词数
-# TGT_VOCAB = 3194                # 中文的单词数
 
 DATA_FILE = '/kaggle/working/exp5/data/news-commentary-v15.en-zh.tsv'
-# TRAIN_FILE = 'data/train.txt'   # 训练集
-# DEV_FILE = 'data/dev.txt'       # 验证集
-# TEST_FILE = 'data/test.txt'     # 测试文件
 SAVE_FILE = '/kaggle/working/exp5/model.pt'     # 模型保存路径(注意如当前目录无save文件夹需要自己创建)
 
-# 这里针对的是DEV文件
+RES_FILE = "/kaggle/working/exp5/data/res.txt"
 BLEU_REFERENCES = "/kaggle/working/exp5/data/bleu/references.txt" # BLEU评价参考译文
 BLEU_CANDIDATE = "/kaggle/working/exp5/data/bleu/candidate.txt"  # 模型翻译译文
