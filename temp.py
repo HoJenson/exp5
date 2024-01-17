@@ -1,7 +1,7 @@
 import csv
 from nltk import word_tokenize
 
-from settings import DATA_FILE as path
+path = 'data/news-commentary-v15.en-zh.tsv'
  
 def load_data(path=path, train_ratio=0.8, dev_ratio=0.1):
         """
@@ -31,6 +31,9 @@ def load_data(path=path, train_ratio=0.8, dev_ratio=0.1):
         print(len(dev_cn))
         print(len(test_en))
         print(len(test_cn))
+        print(reader[int(record_count*(train_ratio+dev_ratio)):int(record_count*(train_ratio+dev_ratio)) + 10])
+        print(reader[int(record_count*(train_ratio+dev_ratio)) + 1])
+        print(test_cn[:10])
         
         return train_en, train_cn, dev_en, dev_cn, test_en, test_cn
 

@@ -1,6 +1,4 @@
 import numpy as np
-import torch.nn as nn
-from torch.autograd import Variable
 
 from settings import *
 
@@ -11,7 +9,6 @@ def subsequent_mask(size):
     mask = np.triu(np.ones(attn_shape), k=1).astype('uint8')
     # 返回一个右上角(不含主对角线)为全False，左下角(含主对角线)为全True的subsequent_mask矩阵
     return torch.from_numpy(mask) == 0
-
 
 def seq_padding(X, padding=0):
     """
@@ -25,3 +22,24 @@ def seq_padding(X, padding=0):
     # (注意这里默认padding id是0，相当于是拿<UNK>来做了padding)
     return np.array([
         np.concatenate([x, [padding] * (ML - len(x))]) if len(x) < ML else x for x in X])
+    
+def bleu_candidate(sentence):
+    "保存预测的翻译结果到文件中"
+    with open(BLEU_CANDIDATE,'a+',encoding='utf-8') as f:
+        f.write(sentence + '\n')
+        
+def bleu_references(data, save_filename=BLEU_REFERENCES):
+    """
+    保存参考译文到文件中
+    """
+    writer = open(save_filename,'a+',encoding='utf-8')
+    for i in range(len(data.test_cn)):
+        text_cn = data.test_cn[i]
+        sentence_tap = " ".join(data.cn_index_dict[text_cn[w]] for w in range(1, len(text_cn)-1))
+        writer.write(sentence_tap+'\n')
+    writer.close()
+    
+if __name__ == '__main__':
+    from data_pre import PrepareData
+    data = PrepareData(DATA_FILE)
+    bleu_references(data)
