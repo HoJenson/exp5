@@ -42,17 +42,17 @@ class PrepareData:
             reader = list(csv.reader(file, delimiter='\t'))
             record_count = sum(1 for _ in reader)
             for i in range(0, int(record_count*train_ratio)):
-                if len(reader[i][0]) != 0:
-                    train_en.append(["BOS"] + word_tokenize(reader[i][0].lower()) + ["EOS"])
-                    train_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
+                #if len(reader[i][0]) != 0:
+                train_en.append(["BOS"] + word_tokenize(reader[i][0].lower()) + ["EOS"])
+                train_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
             for i in range(int(record_count*train_ratio), int(record_count*(train_ratio+dev_ratio))):
-                if len(reader[i][0]) != 0:
-                    dev_en.append(["BOS"] + word_tokenize(reader[i][0].lower()) + ["EOS"])
-                    dev_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
+                #if len(reader[i][0]) != 0:
+                dev_en.append(["BOS"] + word_tokenize(reader[i][0].lower()) + ["EOS"])
+                dev_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
             for i in range(int(record_count*(train_ratio+dev_ratio)), record_count):
-                if len(reader[i][0]) != 0:
-                    test_en.append(["BOS"] + word_tokenize(reader[i][0].lower()) + ["EOS"])
-                    test_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
+                #if len(reader[i][0]) != 0:
+                test_en.append(["BOS"] + word_tokenize(reader[i][0].lower()) + ["EOS"])
+                test_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
         
         return train_en, train_cn, dev_en, dev_cn, test_en, test_cn
 
