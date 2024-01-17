@@ -9,6 +9,16 @@ from data_pre import PrepareData
 from model import make_model,  SimpleLossCompute, LabelSmoothing, NoamOpt
 from settings import *
 
+# 数据预处理
+data = PrepareData(DATA_FILE)
+src_vocab = len(data.en_word_dict)
+tgt_vocab = len(data.cn_word_dict)
+print("src_vocab %d" % src_vocab)
+print("tgt_vocab %d" % tgt_vocab)
+
+# 模型的初始化
+model = make_model(src_vocab, tgt_vocab, LAYERS, D_MODEL, D_FF, H_NUM, DROPOUT)
+
 seed = 10 
 random.seed(seed) 
 torch.manual_seed(seed) 
@@ -87,20 +97,6 @@ def train(data, model, criterion, optimizer):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--path', type=str, required=True)
-    args = parser.parse_args()
-    
-    # 数据预处理
-    data = PrepareData(args.path)
-    src_vocab = len(data.en_word_dict)
-    tgt_vocab = len(data.cn_word_dict)
-    print("src_vocab %d" % src_vocab)
-    print("tgt_vocab %d" % tgt_vocab)
-
-    # 模型的初始化
-    model = make_model(src_vocab, tgt_vocab, LAYERS, D_MODEL, D_FF, H_NUM, DROPOUT)
-
     # training part
     print(">>>>>>> start train")
     train_start = time.time()

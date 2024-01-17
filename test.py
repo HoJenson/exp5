@@ -101,16 +101,12 @@ def read_candidates():
     return result
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--path', type=str, required=True)
-    args = parser.parse_args()
-    
-    from settings import SAVE_FILE
+    from settings import SAVE_FILE, DATA_FILE
     from train import model
     from data_pre import PrepareData
     
     model.load_state_dict(torch.load(SAVE_FILE, map_location=torch.device('cpu')))
-    data = PrepareData(args.path)
+    data = PrepareData(DATA_FILE)
     evaluate_test(data, model)
     
     references = read_references()
