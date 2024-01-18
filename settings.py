@@ -18,7 +18,7 @@ WAIT = 4                        # 早停，等待的最大epoch数
 
 DATA_FILE = '/kaggle/working/exp5/data/news-commentary-v15.en-zh.tsv'
 SAVE_FILE = '/kaggle/working/exp5/model.pt'     # 模型保存路径(注意如当前目录无save文件夹需要自己创建)
-MODEL_FILE = '/kaggle/input/modelpt/model.pt'
+MODEL_FILE = '/kaggle/input/model-pt/model.pt'
 
 RES_FILE = "/kaggle/working/exp5/data/res.txt"
 BLEU_REFERENCES = "/kaggle/working/exp5/data/bleu/references.txt" # BLEU评价参考译文
