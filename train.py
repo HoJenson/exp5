@@ -28,8 +28,8 @@ np.random.seed(seed)
 
 def plot_loss(train_loss_list, dev_loss_list):
     plt.figure()
-    plt.plot(train_loss_list.cpu().numpy(), c="red", label="train_loss")
-    plt.plot(dev_loss_list.cpu().numpy(), c="blue", label="dev_loss")
+    plt.plot(torch.tensor(train_loss_list).cpu().numpy(), c="red", label="train_loss")
+    plt.plot(torch.tensor(dev_loss_list).cpu().numpy(), c="blue", label="dev_loss")
     plt.legend()
     plt.xlabel("Epoch")
     plt.ylabel("Loss")
