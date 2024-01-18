@@ -6,7 +6,7 @@ UNK = 0                         # 未登录词标识符的索引
 PAD = 1                         # padding占位符的索引
 
 BATCH_SIZE = 64                 # 批次大小
-EPOCHS = 60                     # 训练轮数
+EPOCHS = 100                     # 训练轮数
 LAYERS = 3                      # transformer中encoder和decoder层数
 H_NUM = 4                       # multi head attention hidden个数
 D_MODEL = 256                   # embedding 维度
@@ -18,6 +18,7 @@ WAIT = 4                        # 早停，等待的最大epoch数
 
 DATA_FILE = '/kaggle/working/exp5/data/news-commentary-v15.en-zh.tsv'
 SAVE_FILE = '/kaggle/working/exp5/model.pt'     # 模型保存路径(注意如当前目录无save文件夹需要自己创建)
+MODEL_FILE = '/kaggle/input/modelpt/model.pt'
 
 RES_FILE = "/kaggle/working/exp5/data/res.txt"
 BLEU_REFERENCES = "/kaggle/working/exp5/data/bleu/references.txt" # BLEU评价参考译文

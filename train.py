@@ -18,6 +18,7 @@ print("tgt_vocab %d" % tgt_vocab)
 
 # 模型的初始化
 model = make_model(src_vocab, tgt_vocab, LAYERS, D_MODEL, D_FF, H_NUM, DROPOUT)
+model.load_state_dict(torch.load(MODEL_FILE, map_location=DEVICE))
 
 seed = 10 
 random.seed(seed) 
@@ -27,8 +28,8 @@ np.random.seed(seed)
 
 def plot_loss(train_loss_list, dev_loss_list):
     plt.figure()
-    plt.plot(train_loss_list, c="red", label="train_loss")
-    plt.plot(dev_loss_list, c="blue", label="dev_loss")
+    plt.plot(train_loss_list.cpu().numpy(), c="red", label="train_loss")
+    plt.plot(dev_loss_list.cpu().numpy(), c="blue", label="dev_loss")
     plt.legend()
     plt.xlabel("Epoch")
     plt.ylabel("Loss")
@@ -41,7 +42,7 @@ def run_epoch(data, model, loss_compute, epoch):
     total_loss = 0.
     tokens = 0.
 
-    for batch in tqdm(data):
+    for batch in data:
         out = model(batch.src, batch.trg, batch.src_mask, batch.trg_mask)
         # 里面包含了 计算loss -> backward -> optimizer.step() -> 梯度清零
         loss = loss_compute(out, batch.trg_y, batch.ntokens)
@@ -80,8 +81,8 @@ def train(data, model, criterion, optimizer):
         
         # 如果当前epoch的模型在dev集上的loss优于之前记录的最优loss则保存当前模型，并更新最优loss值
         if dev_loss < best_dev_loss:
-            print(f'Update best_dev_loss to {best_dev_loss:10.6f}')
             best_dev_loss = dev_loss
+            print(f'Update best_dev_loss to {best_dev_loss:10.6f}')
             delay = 0
             torch.save(model.state_dict(), SAVE_FILE)
             print('Save model done...')
