@@ -111,11 +111,11 @@ def read_candidates():
     return result
 
 if __name__ == '__main__':
-    from settings import SAVE_FILE, DATA_FILE
+    from settings import SAVE_FILE, DATA_FILE, MODEL_FILE
     from train import model
     from data_pre import PrepareData
     
-    model.load_state_dict(torch.load(SAVE_FILE, map_location=torch.device('cpu')))
+    model.load_state_dict(torch.load(MODEL_FILE, map_location=torch.device('cpu')))
     data = PrepareData(DATA_FILE)
     evaluate_test(data, model)
     
