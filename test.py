@@ -5,6 +5,7 @@ from settings import DEVICE, MAX_LENGTH
 import numpy as np
 from tqdm import tqdm
 from utils import bleu_candidate, update_res
+
 from nltk.translate.bleu_score import corpus_bleu
 
 def greedy_decode(model, src, src_mask, max_len, start_symbol):
@@ -39,7 +40,7 @@ def evaluate(data, model):
     # 梯度清零
     with torch.no_grad():
         # 在data的英文数据长度上遍历下标
-        for i in range(len(data.test_en)):
+        for i in tqdm(range(len(data.test_en))):
             # 打印待翻译的英文句子
             text_en = data.test_en[i]
             en_sent = " ".join([data.en_index_dict[text_en[w]] for w in range(1, len(text_en)-1)])
@@ -122,10 +123,3 @@ if __name__ == '__main__':
     candidates = read_candidates()
     score = corpus_bleu(references, candidates, weights=(1, 0.2, 0, 0))
     print(score)
-    
-    
-# todo
-# 更改reference.txt 更改数据处理空行
-
-# 测试集数据规模（要改的话reference.txt也要改
-# model file save file
