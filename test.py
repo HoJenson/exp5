@@ -1,10 +1,10 @@
 import torch
 from torch.autograd import Variable
 from utils import subsequent_mask
-from settings import DEVICE, MAX_LENGTH
+from settings import DEVICE, MAX_LENGTH, BLEU_CANDIDATE, RES_FILE
 import numpy as np
 from tqdm import tqdm
-from utils import bleu_candidate, update_res
+from utils import bleu_candidate, update_res, delete_file
 
 from nltk.translate.bleu_score import corpus_bleu
 
@@ -37,6 +37,8 @@ def evaluate(data, model):
     """
     在data上用训练好的模型进行预测, 打印模型翻译结果
     """
+    delete_file(BLEU_CANDIDATE)
+    delete_file(RES_FILE)
     # 梯度清零
     with torch.no_grad():
         # 在data的英文数据长度上遍历下标
