@@ -40,7 +40,7 @@ def evaluate(data, model):
     # 梯度清零
     with torch.no_grad():
         # 在data的英文数据长度上遍历下标
-        for i in range(len(data.test_en)):
+        for i in tqdm(range(len(data.test_en))):
             # 打印待翻译的英文句子
             text_en = data.test_en[i]
             en_sent = " ".join([data.en_index_dict[text_en[w]] for w in range(1, len(text_en)-1)])
@@ -59,7 +59,7 @@ def evaluate(data, model):
             # 初始化一个用于存放模型翻译结果句子单词的列表
             translation = []
             # 遍历翻译输出字符的下标（注意：开始符"BOS"的索引0不遍历）
-            for j in tqdm(range(1, out.size(1))):
+            for j in range(1, out.size(1)):
                 # 获取当前下标的输出字符
                 sym = data.cn_index_dict[out[0, j].item()]
                 # 如果输出字符不为'EOS'终止符，则添加到当前句子的翻译结果列表
@@ -127,3 +127,5 @@ if __name__ == '__main__':
     
 # todo
 # 更改reference.txt 更改数据处理空行
+
+# 测试集数据规模（要改的话reference.txt也要改）
