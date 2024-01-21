@@ -3,7 +3,6 @@ from torch.autograd import Variable
 from utils import subsequent_mask
 from settings import DEVICE, MAX_LENGTH
 import numpy as np
-from tqdm import tqdm
 from utils import bleu_candidate, update_res
 from nltk.translate.bleu_score import corpus_bleu
 
@@ -68,15 +67,11 @@ def evaluate(data, model):
                 else:
                     break
             
-            # 打印模型翻译输出的中文句子结果
-            # 打印前五十条数据测试数据
-            if i < 50:
+            # 保存前100条模型翻译输出的中文句子结果
+            if i <= 100:
                 update_res(en_sent)
                 update_res("".join(cn_sent))
                 update_res(" ".join(translation))
-                # print("\n" + en_sent)
-                # print("".join(cn_sent))
-                # print("translation: %s" % " ".join(translation))
             
             bleu_candidate(" ".join(translation))
 
@@ -123,9 +118,3 @@ if __name__ == '__main__':
     score = corpus_bleu(references, candidates, weights=(1, 0.2, 0, 0))
     print(score)
     
-    
-# todo
-# 更改reference.txt 更改数据处理空行
-
-# 测试集数据规模（要改的话reference.txt也要改
-# model file save file
