@@ -1,8 +1,4 @@
 import time
-import random
-import argparse
-import numpy as np
-from tqdm import tqdm
 import matplotlib.pyplot as plt
 
 from data_pre import PrepareData
@@ -13,18 +9,13 @@ from settings import *
 data = PrepareData(DATA_FILE)
 src_vocab = len(data.en_word_dict)
 tgt_vocab = len(data.cn_word_dict)
-print("src_vocab %d" % src_vocab)
-print("tgt_vocab %d" % tgt_vocab)
+print("SRC_VOCAB %d" % src_vocab)
+print("TGT_VOCAB %d" % tgt_vocab)
 
 # 模型的初始化
 model = make_model(src_vocab, tgt_vocab, LAYERS, D_MODEL, D_FF, H_NUM, DROPOUT)
-model.load_state_dict(torch.load(MODEL_FILE, map_location=DEVICE))
-
-seed = 10 
-random.seed(seed) 
-torch.manual_seed(seed) 
-torch.cuda.manual_seed(seed) 
-np.random.seed(seed)
+# 加载模型
+# model.load_state_dict(torch.load(MODEL_FILE, map_location=DEVICE))
 
 def plot_loss(train_loss_list, dev_loss_list):
     plt.figure()
@@ -37,25 +28,18 @@ def plot_loss(train_loss_list, dev_loss_list):
     plt.savefig("loss.png")
 
 def run_epoch(data, model, loss_compute, epoch):
-    # start = time.time()
     total_tokens = 0.
     total_loss = 0.
     tokens = 0.
 
     for batch in data:
         out = model(batch.src, batch.trg, batch.src_mask, batch.trg_mask)
-        # 里面包含了 计算loss -> backward -> optimizer.step() -> 梯度清零
         loss = loss_compute(out, batch.trg_y, batch.ntokens)
 
         total_loss += loss
         total_tokens += batch.ntokens
         tokens += batch.ntokens  # 实际的词数
 
-        # if i % 50 == 0:
-        #     elapsed = time.time() - start
-        #     print("Loss: %f / Tokens per Sec: %fs" % (loss / batch.ntokens, (tokens.float() / elapsed / 1000.)))
-        #     start = time.time()
-        #     tokens = 0
     return total_loss / total_tokens
 
 def train(data, model, criterion, optimizer):
