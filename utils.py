@@ -1,4 +1,5 @@
 import numpy as np
+import os
 
 from settings import *
 
@@ -31,13 +32,18 @@ def bleu_candidate(sentence):
 def bleu_references(data, save_filename=BLEU_REFERENCES):
     """
     保存参考译文到文件中
-    """
+    """ 
+    delete_file(save_filename)
     writer = open(save_filename,'a+',encoding='utf-8')
     for i in range(len(data.test_cn)):
         text_cn = data.test_cn[i]
         sentence_tap = " ".join(data.cn_index_dict[text_cn[w]] for w in range(1, len(text_cn)-1))
         writer.write(sentence_tap+'\n')
     writer.close()
+
+def delete_file(filename):
+    if os.path.exists(filename):
+        os.remove(filename)
     
 def update_res(data, res_filename=RES_FILE):
     writer = open(res_filename, 'a+', encoding='utf-8')
