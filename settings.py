@@ -7,8 +7,8 @@ PAD = 1                         # padding占位符的索引
 
 BATCH_SIZE = 32                 # 批次大小
 EPOCHS = 100                    # 训练轮数
-LAYERS = 3                      # transformer中encoder和decoder层数
-H_NUM = 4                       # multi head attention hidden个数
+LAYERS = 2                      # transformer中encoder和decoder层数
+H_NUM = 2                       # multi head attention hidden个数
 D_MODEL = 256                   # embedding 维度
 D_FF = 512                      # feed forward第一个全连接层维数
 DROPOUT = 0.1                   # dropout比例
