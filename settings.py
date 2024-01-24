@@ -23,8 +23,8 @@ DATA_SET = 'back-translated-news'
 DATA_FILE = 'data/news-commentary-v15.en-zh.tsv'
 
 # 'back-translated-news'数据集存储的位置
-DATA_FILE_EN = ''
-DATA_FILE_CN = ''
+DATA_FILE_EN = 'data/news.en'
+DATA_FILE_CN = 'data/news.translatedto.zh'
 
 
 SAVE_FILE = 'model.pt'     # 模型保存路径

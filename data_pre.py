@@ -56,7 +56,7 @@ class PrepareData:
                         test_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
         
         elif DATA_SET == 'back-translated-news':
-            record_count = 30000
+            record_count = 10
             with open(DATA_FILE_EN, mode='r', newline='', encoding='utf-8') as file:
                 reader = list(csv.reader(file, delimiter='\t'))
                 for i in range(0, int(record_count*train_ratio)):
@@ -73,14 +73,14 @@ class PrepareData:
                 reader = list(csv.reader(file, delimiter='\t'))
                 for i in range(0, int(record_count*train_ratio)):
                     if len(reader[i][0]) != 0:
-                        train_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
+                        train_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][0]])) + ["EOS"])
                 for i in range(int(record_count*train_ratio), int(record_count*(train_ratio+dev_ratio))):
                     if len(reader[i][0]) != 0:
-                        dev_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
+                        dev_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][0]])) + ["EOS"])
                 for i in range(int(record_count*(train_ratio+dev_ratio)), record_count):
                     if len(reader[i][0]) != 0:
-                        test_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
-        
+                        test_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][0]])) + ["EOS"])
+
         return train_en, train_cn, dev_en, dev_cn, test_en, test_cn
 
     def build_dict(self, sentences, max_words=50000):
