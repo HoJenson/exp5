@@ -56,21 +56,21 @@ class PrepareData:
                         test_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
         
         elif DATA_SET == 'back-translated-news':
-            record_count = 100000
+            record_count = 200000
             with open(DATA_FILE_EN, mode='r', newline='', encoding='utf-8') as file_en:
                 reader_en = list(csv.reader(file_en, delimiter='\t'))
                 with open(DATA_FILE_CN, mode='r', newline='', encoding='utf-8') as file_cn:
                     reader_cn = list(csv.reader(file_cn, delimiter='\t'))
                     for i in range(0, int(record_count*train_ratio)):
-                        if len(reader_en[i][0]) > 0 and len(reader_en[i][0]) < 60:
+                        if len(reader_en[i][0]) > 0 and len(reader_en[i][0]) < 80:
                             train_en.append(["BOS"] + word_tokenize(reader_en[i][0].lower()) + ["EOS"])
                             train_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader_cn[i][0]])) + ["EOS"])
                     for i in range(int(record_count*train_ratio), int(record_count*(train_ratio+dev_ratio))):
-                        if len(reader_en[i][0]) > 0 and len(reader_en[i][0]) < 60:
+                        if len(reader_en[i][0]) > 0 and len(reader_en[i][0]) < 80:
                             dev_en.append(["BOS"] + word_tokenize(reader_en[i][0].lower()) + ["EOS"])
                             dev_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader_cn[i][0]])) + ["EOS"])
                     for i in range(int(record_count*(train_ratio+dev_ratio)), record_count):
-                        if len(reader_en[i][0]) > 0 and len(reader_en[i][0]) < 50:
+                        if len(reader_en[i][0]) > 0 and len(reader_en[i][0]) < 80:
                             test_en.append(["BOS"] + word_tokenize(reader_en[i][0].lower()) + ["EOS"])
                             test_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader_cn[i][0]])) + ["EOS"])
 
