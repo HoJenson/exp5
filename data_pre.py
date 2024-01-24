@@ -56,29 +56,29 @@ class PrepareData:
                         test_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
         
         elif DATA_SET == 'back-translated-news':
-            record_count = 100000
+            record_count = 80000
             with open(DATA_FILE_EN, mode='r', newline='', encoding='utf-8') as file:
                 reader = list(csv.reader(file, delimiter='\t'))
                 for i in range(0, int(record_count*train_ratio)):
-                    if len(reader[i][0]) != 0:
+                    if len(reader[i][0]) > 0 and len(reader[i][0]) < 5000:
                         train_en.append(["BOS"] + word_tokenize(reader[i][0].lower()) + ["EOS"])
                 for i in range(int(record_count*train_ratio), int(record_count*(train_ratio+dev_ratio))):
-                    if len(reader[i][0]) != 0:
+                    if len(reader[i][0]) > 0 and len(reader[i][0]) < 5000:
                         dev_en.append(["BOS"] + word_tokenize(reader[i][0].lower()) + ["EOS"])
                 for i in range(int(record_count*(train_ratio+dev_ratio)), record_count):
-                    if len(reader[i][0]) != 0:
+                    if len(reader[i][0]) > 0 and len(reader[i][0]) < 5000:
                         test_en.append(["BOS"] + word_tokenize(reader[i][0].lower()) + ["EOS"])
             
             with open(DATA_FILE_CN, mode='r', newline='', encoding='utf-8') as file:
                 reader = list(csv.reader(file, delimiter='\t'))
                 for i in range(0, int(record_count*train_ratio)):
-                    if len(reader[i][0]) != 0:
+                    if len(reader[i][0]) > 0 and len(reader[i][0]) < 5000:
                         train_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][0]])) + ["EOS"])
                 for i in range(int(record_count*train_ratio), int(record_count*(train_ratio+dev_ratio))):
-                    if len(reader[i][0]) != 0:
+                    if len(reader[i][0]) > 0 and len(reader[i][0]) < 5000:
                         dev_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][0]])) + ["EOS"])
                 for i in range(int(record_count*(train_ratio+dev_ratio)), record_count):
-                    if len(reader[i][0]) != 0:
+                    if len(reader[i][0]) > 0 and len(reader[i][0]) < 5000:
                         test_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][0]])) + ["EOS"])
 
         return train_en, train_cn, dev_en, dev_cn, test_en, test_cn
