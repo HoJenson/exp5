@@ -15,8 +15,18 @@ DROPOUT = 0.1                   # dropout比例
 MAX_LENGTH = 100                # 语句最大长度，训练集中为518，过大测试时速度会很慢
 WAIT = 4                        # 早停，等待的最大epoch数
 
+# 数据集 'news-commentary-v15' or 'back-translated-news'
+# DATA_SET = 'news-commentary-v15'
+DATA_SET = 'back-translated-news'
 
+# 'news-commentary-v15'数据集存储的位置
 DATA_FILE = 'data/news-commentary-v15.en-zh.tsv'
+
+# 'back-translated-news'数据集存储的位置
+DATA_FILE_EN = ''
+DATA_FILE_CN = ''
+
+
 SAVE_FILE = 'model.pt'     # 模型保存路径
 MODEL_FILE = 'model.pt'    # 从训练好的模型迁移，‘train.py’
 

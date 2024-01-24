@@ -48,7 +48,7 @@ def train(data, model, criterion, optimizer):
     delay = 0
     train_loss_list, dev_loss_list = [], []
     for epoch in range(EPOCHS):
-        print(f"#" * 50 + f"Epoch: {epoch + 1}" + "#" * 50)
+        print(f"#" * 40 + f"Epoch: {epoch + 1}" + "#" * 40)
         
         model.train()
         train_loss = run_epoch(data.train_data, model, 
