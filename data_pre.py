@@ -180,8 +180,8 @@ class Batch:
     """
     def __init__(self, src, trg=None, pad=0):
         # 将输入与输出的单词id表示的数据规范成整数类型
-        src = torch.from_numpy(src).to(DEVICE).long()
-        trg = torch.from_numpy(trg).to(DEVICE).long()
+        src = torch.from_numpy(src).to('cpu').long()
+        trg = torch.from_numpy(trg).to('cpu').long()
         self.src = src
         # 对于当前输入的句子非空部分进行判断,变成bool序列
         # 并在seq_len前面增加一维，形成维度为 batch_size×1×seq_len 的矩阵
