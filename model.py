@@ -21,7 +21,7 @@ class Embeddings(nn.Module):
         return self.embeding(x) * math.sqrt(self.d_model)
     
 class PositionalEncoding(nn.Module):
-    def __init__(self, d_model, dropout, max_len=5000):
+    def __init__(self, d_model, dropout, max_len=5300):
         """
         :param d_model: embedding的维度
         :param dropout: dropout率
