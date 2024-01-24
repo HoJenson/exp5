@@ -56,7 +56,7 @@ class PrepareData:
                         test_cn.append(["BOS"] + word_tokenize(" ".join([w for w in reader[i][1]])) + ["EOS"])
         
         elif DATA_SET == 'back-translated-news':
-            record_count = 300000
+            record_count = 200000
             with open(DATA_FILE_EN, mode='r', newline='', encoding='utf-8') as file:
                 reader = list(csv.reader(file, delimiter='\t'))
                 for i in range(0, int(record_count*train_ratio)):
