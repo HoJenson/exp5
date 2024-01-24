@@ -5,7 +5,7 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 UNK = 0                         # 未登录词标识符的索引
 PAD = 1                         # padding占位符的索引
 
-BATCH_SIZE = 16                 # 批次大小
+BATCH_SIZE = 1                 # 批次大小
 EPOCHS = 100                    # 训练轮数
 LAYERS = 2                      # transformer中encoder和decoder层数
 H_NUM = 2                       # multi head attention hidden个数
