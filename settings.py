@@ -6,7 +6,7 @@ UNK = 0                         # 未登录词标识符的索引
 PAD = 1                         # padding占位符的索引
 
 BATCH_SIZE = 8                 # 批次大小
-EPOCHS = 100                    # 训练轮数
+EPOCHS = 130                    # 训练轮数
 LAYERS = 2                      # transformer中encoder和decoder层数
 H_NUM = 2                       # multi head attention hidden个数
 D_MODEL = 256                   # embedding 维度
@@ -28,7 +28,7 @@ DATA_FILE_CN = '/kaggle/input/translations/news.translatedto.zh'
 
 
 SAVE_FILE = 'model.pt'     # 模型保存路径
-MODEL_FILE = '/kaggle/input/half-complete-model/model.pt'    # 从训练好的模型迁移，‘train.py’
+MODEL_FILE = '/kaggle/input/dataset2-model/model.pt'    # 从训练好的模型迁移，‘train.py’
 
 RES_FILE = "data/res.txt"
 BLEU_REFERENCES = "data/bleu/references.txt" # BLEU评价参考译文
