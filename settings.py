@@ -28,7 +28,7 @@ DATA_FILE_CN = '/kaggle/input/translations/news.translatedto.zh'
 
 
 SAVE_FILE = 'model.pt'     # 模型保存路径
-MODEL_FILE = '/kaggle/input/dataset2-model/model.pt'    # 从训练好的模型迁移，‘train.py’
+MODEL_FILE = '/kaggle/input/dataset2-model-1/model.pt'    # 从训练好的模型迁移，‘train.py’
 
 RES_FILE = "data/res.txt"
 BLEU_REFERENCES = "data/bleu/references.txt" # BLEU评价参考译文
