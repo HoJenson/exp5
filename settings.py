@@ -31,5 +31,5 @@ SAVE_FILE = 'model.pt'     # 模型保存路径
 MODEL_FILE = '/kaggle/input/test-model/model.pt'    # 从训练好的模型迁移，‘train.py’
 
 RES_FILE = "res.txt"
-BLEU_REFERENCES = "/kaggle/output/exp5/data/bleu/references.txt" # BLEU评价参考译文
-BLEU_CANDIDATE = "/kaggle/output/exp5/data/bleu/candidate.txt"  # 模型翻译译文
+BLEU_REFERENCES = "/kaggle/working/exp5/data/bleu/references.txt" # BLEU评价参考译文
+BLEU_CANDIDATE = "/kaggle/working/exp5/data/bleu/candidate.txt"  # 模型翻译译文
