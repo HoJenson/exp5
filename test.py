@@ -42,7 +42,7 @@ def evaluate(data, model):
     # 梯度清零
     with torch.no_grad():
         # 在data的英文数据长度上遍历下标
-        for i in tqdm(range(len(data.test_en))):
+        for i in range(len(data.test_en)):
             # 打印待翻译的英文句子
             text_en = data.test_en[i]
             en_sent = " ".join([data.en_index_dict[text_en[w]] for w in range(1, len(text_en)-1)])
