@@ -122,9 +122,3 @@ if __name__ == '__main__':
     score = corpus_bleu(references, candidates, weights=(1, 0.2, 0, 0))
     print(score)
     
-    
-# todo
-# 更改reference.txt 更改数据处理空行
-
-# 测试集数据规模（要改的话reference.txt也要改
-# model file save file

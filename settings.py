@@ -6,11 +6,11 @@ UNK = 0                         # 未登录词标识符的索引
 PAD = 1                         # padding占位符的索引
 
 BATCH_SIZE = 8                 # 批次大小
-EPOCHS = 110                    # 训练轮数
-LAYERS = 2                      # transformer中encoder和decoder层数
-H_NUM = 2                       # multi head attention hidden个数
+EPOCHS = 150                    # 训练轮数
+LAYERS = 3                      # transformer中encoder和decoder层数
+H_NUM = 4                       # multi head attention hidden个数
 D_MODEL = 256                   # embedding 维度
-D_FF = 256                      # feed forward第一个全连接层维数
+D_FF = 512                      # feed forward第一个全连接层维数
 DROPOUT = 0.1                   # dropout比例
 MAX_LENGTH = 100                # 语句最大长度，过大测试时速度会很慢
 WAIT = 4                        # 早停，等待的最大epoch数

@@ -15,7 +15,7 @@ print("TGT_VOCAB %d" % tgt_vocab)
 # 模型的初始化
 model = make_model(src_vocab, tgt_vocab, LAYERS, D_MODEL, D_FF, H_NUM, DROPOUT)
 # 加载模型
-model.load_state_dict(torch.load(MODEL_FILE, map_location=DEVICE))
+# model.load_state_dict(torch.load(MODEL_FILE, map_location=DEVICE))
 
 def plot_loss(train_loss_list, dev_loss_list):
     plt.figure()
